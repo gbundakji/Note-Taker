@@ -3,7 +3,8 @@
 [
     {
         "title":"Welcome to Note Taker",
-        "text":"This is a Heroku application that allows you to add and save notes"
+        "text":"This is a Heroku application that allows you to add and save notes",
+        "id": "1"
     }
 ]
 
