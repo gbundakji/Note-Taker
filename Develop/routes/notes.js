@@ -1,36 +1,51 @@
-const nt = require('express').Router();
+const notesRouter = require('express').Router();
 const { v4: uuidv4 } = require('uuid');
-const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
+const { readAndAppend, readFromFile, writeToFile } = require('../helpers/fsUtils');
 
-nt.get('/', (req, res) =>
-    readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)))
-);
+notesRouter.get('/', (req, res) => {
+    readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
+});
 
-nt.post('/', (req, res) => {
-    const saved = notes;
+notesRouter.get('/:note_id', (req, res) => {
+    const noteId= req.params.note_id;
+    readFromFile('./db/notes.json')
+        .then((data) => JSON.parse(data))
+        .then((json) => {
+            const result = json.filter((note) => note.note_id === noteId);
+            return result.length > 0
+            ? res.json(result)
+            : res.json('No note with that ID');
+        });
+});
 
-    if (notes) {
-        const newNotes = {
-            notes,
-            notes_id: uuidv4(),
+notesRouter.delete('/:note_id', (req, res) => {
+    const noteId = req.params.note_id;
+    readFromFile('./db/notes.json')
+        .then((data) => JSON.parse(data))
+        .then((json) => {
+            const result = json.filter((note) => note.note_id !== noteId);
+            writeToFile('./db/notes.json', result);
+            res.json(`Note ${noteId} has been deleted 🗑️`);
+        });
+});
+
+notesRouter.post('/', (req, res) => {
+    console.log(req.body);
+
+    const { title, note } = req.body;
+
+    if (req.body) {
+        const newNote = {
+            title,
+            note,
+            note_id : uuidv4(),
         };
-        readAndAppend(newNotes, './db/notes.json');
 
-        const response = {
-            status: 'Sucess',
-            body: newNotes,
-        };
-        
-        res.json(response);
+        readAndAppend(newNote, './db/notes.json');
+        res.json(`Note added successfully 🚀`);
     } else {
-        res.json('Error in posting note')
+        res.errored('Error in adding note');
     }
 });
 
-// router.delete('/notes/:id', (req, res) => {
-//     deleteNote(notes, req.params.id);
-//     res.json(notes);
-// });
-
-
-module.exports = nt;
+module.exports = notesRouter;

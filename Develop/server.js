@@ -1,24 +1,34 @@
 const express = require('express');
 const path = require('path');
 const { clog } = require('./middleware/clog');
-const html = require('./routes/html.js');
+const api = require('./routes/index.js');
+
 const PORT = process.env.PORT || 3001;
+
 const app = express();
 
 app.use(clog);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/html', html);
+app.use('/api', api);
 
 app.use(express.static('public'));
+
+// app.use('/notes', notesRouter);
+// app.use('/api', apiRouter);
+// app.use('/html', htmlRouter);
 
 app.get('/', (req, res) =>
     res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
-app.get('/notes.html', (req, res) =>
+app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, '/public/notes.html'))
+);
+
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '/public/404.html'))
 );
 
 app.listen(PORT, () => 
