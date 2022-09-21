@@ -1,7 +1,7 @@
 const express = require('express');
 
 const notesRouter = require('./notes');
-// const apiRouter = require('./api');
+
 const htmlRouter = require('./html')
 
 const app = express();
