@@ -41,7 +41,7 @@ notesRouter.post('/', (req, res) => {
             note_id : uuidv4(),
         };
 
-        readAndAppend(newNote, '../db/notes.json');
+        readAndAppend(newNote, './db/notes.json');
         res.json(`Note added successfully 🚀`);
     } else {
         res.errored('Error in adding note');
