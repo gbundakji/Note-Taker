@@ -7,19 +7,15 @@ const htmlRouter = require('./html')
 const app = express();
 
 app.use('/notes', notesRouter);
-// app.use('/api', apiRouter);
+
 app.use('/html', htmlRouter);
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-  });
-  
-  app.get('/notes', (req, res) => {
+app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
-  });
+});
   
-  app.get('*', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
-  });
+});
 
 module.exports = app;
