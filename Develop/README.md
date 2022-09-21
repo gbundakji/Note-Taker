@@ -10,7 +10,7 @@ This application was created to allow a user to write and save tasks as notes in
 
 ## Heroku Deployed Application
 
-
+https://git.heroku.com/afternoon-ocean-64485.git
 
 ## Installation
 
@@ -18,11 +18,16 @@ In order to run this application you must have Heroku installed on your machine.
 
 ## Visuals
 
+<img src = "./public/assets/images/note-taker1.png" width = "500px">
+
+
+<img src = "./public/assets/images/note-taker2.png" width = "500px">
 
 
 ## Credit
 
 https://coding-boot-camp.github.io/full-stack/heroku/how-to-install-the-heroku-cli
+
 https://expressjs.com/en/guide/routing.html
 
 
