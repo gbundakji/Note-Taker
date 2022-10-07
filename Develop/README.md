@@ -10,7 +10,7 @@ This application was created to allow a user to write and save tasks as notes in
 
 ## Heroku Deployed Application
 
-https://git.heroku.com/afternoon-ocean-64485.git
+http://afternoon-ocean-64485.herokuapp.com/notes
 
 ## Installation
 
